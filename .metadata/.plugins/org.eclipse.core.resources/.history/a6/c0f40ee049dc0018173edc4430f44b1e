@@ -1,0 +1,13 @@
+package com.revature.frontcontroller;
+
+import org.apache.catalina.servlets.DefaultServlet;
+
+public class DispatcherServlet extends DefaultServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+}

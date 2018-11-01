@@ -1,0 +1,16 @@
+package com.revature.servlets;
+
+import org.apache.catalina.servlets.DefaultServlet;
+/**
+ * Servlet Hierarchy
+ * 
+ * Starts w/ interface:		Servlet
+ * Implemented by: 			GenericServlet
+ * Extended by: 			HttpServlet
+ * Extended by:				DefaultServlet
+ * Extended by:				You
+ */
+
+public class HelloWorldServlet extends DefaultServlet{
+	private static final long serialVersionUID = -465065498461L;
+}

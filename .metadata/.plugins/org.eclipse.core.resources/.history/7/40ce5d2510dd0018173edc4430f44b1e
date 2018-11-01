@@ -1,0 +1,33 @@
+package com.revature.controller;
+
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ContainerController {
+	
+	
+	
+	public void get(HttpServletRequest request ,HttpServletResponse response) {
+		// Get cookies from request - cookies sent by the client
+		Cookie[] cookies = request.getCookies();
+		
+		Cookie cookie = new Cookie();
+		
+		response.addCookie(cookie);
+	}
+	/**
+	 * Print out what is included in the request body
+	 * @throws IOException 
+	 */
+	
+	public void post(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String line = null;
+		while((line = request.getReader().readLine()) != null) {
+			System.out.println(line);
+		}
+		
+	}
+}

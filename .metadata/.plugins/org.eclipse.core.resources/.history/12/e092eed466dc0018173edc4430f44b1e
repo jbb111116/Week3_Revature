@@ -1,0 +1,21 @@
+package com.revature.controller;
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ContainerController {
+	
+	
+	
+	public void get(HttpServletRequest request ,HttpServletResponse response) {
+		
+	}
+	/**
+	 * Print ou what is included in hte request body
+	 */
+	
+	public void post(HttpServletRequest request, HttpServletResponse response) {
+		while((line = request.getReader().readLine()) != null)
+	}
+}

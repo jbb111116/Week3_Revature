@@ -1,0 +1,82 @@
+package com.revature.models;
+
+import java.math.BigDecimal;
+
+public class Candy {
+	
+	private int id;
+	private String name;
+	private String flavor;
+	private String type;
+	private boolean chocolateCovered;
+	private boolean containsNuts;
+	private int numberOfPieces;
+	private BigDecimal price;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getFlavor() {
+		return flavor;
+	}
+	public void setFlavor(String flavor) {
+		this.flavor = flavor;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public boolean isChocolateCovered() {
+		return chocolateCovered;
+	}
+	public void setChocolateCovered(boolean chocolateCovered) {
+		this.chocolateCovered = chocolateCovered;
+	}
+	public boolean isContainsNuts() {
+		return containsNuts;
+	}
+	public void setContainsNuts(boolean containsNuts) {
+		this.containsNuts = containsNuts;
+	}
+	public int getNumberOfPieces() {
+		return numberOfPieces;
+	}
+	public void setNumberOfPieces(int numberOfPieces) {
+		this.numberOfPieces = numberOfPieces;
+	}
+	public BigDecimal getPrice() {
+		return price;
+	}
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+	public Candy(int id, String name, String flavor, String type, boolean chocolateCovered, boolean containsNuts,
+			int numberOfPieces, BigDecimal price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.flavor = flavor;
+		this.type = type;
+		this.chocolateCovered = chocolateCovered;
+		this.containsNuts = containsNuts;
+		this.numberOfPieces = numberOfPieces;
+		this.price = price;
+	}
+	public Candy() {
+		super();
+	}
+	
+	
+	
+	
+}

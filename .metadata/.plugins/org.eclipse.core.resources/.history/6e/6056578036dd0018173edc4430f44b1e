@@ -1,0 +1,25 @@
+package com.revature.controller;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class CostumesController {
+	public void get(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String uri = request.getRequestURI();
+		String costume = uri.substring("/HalloweenCandy/costumes/".length()).split("/")[0];
+		int id = 0;
+		try {
+			id = Integer.parseInt(costume);
+		}catch (NumberFormatException e) {
+			// could assume that this is the name
+			response.sendError(404);
+			return;
+		}
+	}
+	
+	public void post(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+	}
+}

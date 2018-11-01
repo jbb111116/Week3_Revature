@@ -1,0 +1,8 @@
+package com.revature.services;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class DisneyService {
+	private Map<String, String> disneyCharacterMap = new HashMap<>();
+}

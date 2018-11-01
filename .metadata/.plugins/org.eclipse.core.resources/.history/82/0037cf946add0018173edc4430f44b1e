@@ -1,0 +1,8 @@
+package com.revature.services;
+
+import com.revature.daos.CostumeDao;
+
+public class CostumeService {
+	CostumeDao costumeDao = new CostumeDao();
+	
+}

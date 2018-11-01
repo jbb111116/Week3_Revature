@@ -1,0 +1,20 @@
+package com.revature.frontcontroller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.servlets.DefaultServlet;
+
+public class DispatcherServlet extends DefaultServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		response.getWriter().write("hello servlet");
+	}
+	
+}

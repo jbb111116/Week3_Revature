@@ -1,0 +1,11 @@
+package com.revature.models;
+
+public class Candy {
+	
+	String flavor;
+	String type;
+	boolean chocolateCovered;
+	boolean containsNuts;
+	int numberOfPieces;
+	
+}

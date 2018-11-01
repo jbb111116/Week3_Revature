@@ -1,0 +1,26 @@
+package com.revature.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class CandyController {
+	List<String> candies = new ArrayList<>();
+	{
+		candies.add("snickers");
+		candies.add("candy corn");
+		candies.add("caramel m&ms");
+		candies.add("svenska fish");
+		candies.add("hot tamales");
+	}
+	public void get(HttpServletRequest request, HttpServletResponse response) {
+		int id = Integer.parseInt(request.getParameter("candy"));
+		response.getWriter().write(candies.get(id));
+	}
+
+	public void post(HttpServletRequest request, HttpServletResponse response) {
+		
+	}
+}

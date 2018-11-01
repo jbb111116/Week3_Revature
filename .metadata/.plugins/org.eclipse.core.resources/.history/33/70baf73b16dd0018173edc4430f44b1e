@@ -1,0 +1,13 @@
+package com.revature.models;
+
+import java.math.BigDecimal;
+
+public class Candy {
+	
+	String flavor;
+	String type;
+	boolean chocolateCovered;
+	boolean containsNuts;
+	int numberOfPieces;
+	BigDecimal price;
+}

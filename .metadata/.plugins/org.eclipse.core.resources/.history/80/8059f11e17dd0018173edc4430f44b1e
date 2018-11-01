@@ -1,0 +1,42 @@
+package com.revature.controller;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
+
+import com.revature.models.Candy;
+
+public class CandyController {
+	
+	List<Candy> candies = new ArrayList<>();
+	{
+		candies.add(new Candy(0,"twix","caramel, chocolate, cookie","chocolate bar", true, true, 2, new BigDecimal(2)));
+	}
+	
+	public void get(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// localhost:8080/HalloweenCandy/candy?candy=1
+		String param = request.getParameter("candy");
+		if(param == null) {
+			response.getWriter().write(candies.toString());
+		} else {
+			int id = Integer.parseInt(param);
+			response.getWriter().write(candies.get(id));
+		}
+		
+	}
+
+	public void post(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		candies.add(request.getParameter("candy"));
+		response.getWriter().write(request.getParameter("candy") 
+				+ " added with id " + (candies.size()-1));
+	}
+	
+	
+}
