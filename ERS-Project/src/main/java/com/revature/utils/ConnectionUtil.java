@@ -9,8 +9,8 @@ public class ConnectionUtil {
 		
 		try {
 			String url = "jdbc:postgresql://anotherclassdb.cwgm7vdywa98.us-east-2.rds.amazonaws.com:5432/anotherClassDB";
-			String username = "jDawg";
-			String password = "456210somethingelse";
+			String username = System.getenv("PROJECT1_LOGIN");
+			String password = System.getenv("PROJECT1_PASSWORD");
 			return DriverManager.getConnection(url, username , password);
 		} catch(SQLException e) {
 			e.printStackTrace();
