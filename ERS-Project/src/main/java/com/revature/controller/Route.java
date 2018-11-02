@@ -1,5 +1,8 @@
 package com.revature.controller;
 
-public class Route {
-
+public enum Route {
+	MANAGER,
+	EMPLOYEE,
+	STATIC,
+	NOT_FOUND
 }
