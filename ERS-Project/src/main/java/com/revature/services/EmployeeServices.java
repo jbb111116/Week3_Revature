@@ -7,7 +7,6 @@ import com.revature.daos.UserDao;
 import com.revature.models.ReimbursementRequest;
 
 public class EmployeeServices {
-	UserDao userDao = new UserDao();
 	ReimbursementDao reimbDao = new ReimbursementDao();
 	
 	public ReimbursementRequest submitRequest(ReimbursementRequest request) {

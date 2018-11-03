@@ -44,15 +44,34 @@ public class DispatcherServlet extends DefaultServlet {
 		}
 	}
 	
-	
-	static Route getRoute(HttpServletRequest request) {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Route route = getRoute(request);
 		
-		return null;
+		switch(route) {
+			case MANAGER: manController.post(request, response); break;
+			case EMPLOYEE: empController.post(request, response); break;
+			case NOT_FOUND:
+			default: response.setStatus(404);
+		}
 	}
+	
+	//1
+	static Route getRoute(HttpServletRequest request) {
+		String suffix = request.getRequestURI().substring("/ERS-Project/".length());
+		String routeString = suffix.split("/")[0];
+		try {
+			return Route.valueOf(routeString.toUpperCase());
+		} catch(IllegalArgumentException e) {
+			return Route.NOT_FOUND;
+			}
+	}
+	//1
 	
 	void writeStaticFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("default");
 		HttpServletRequest wrapped = new HttpServletRequestWrapper(request) {
+			public String getServletPath() { return "";}
 			
 		};
 		rd.forward(wrapped, response);
