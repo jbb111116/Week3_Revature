@@ -1,0 +1,7 @@
+<section>
+  <!-- Data binding to view -->
+  <span [class.red]="isEven()">{{count}}</span>
+  <!-- Event binding (event)="expression" -->
+  <!-- Property Binding [property]="expression" -->
+  <button class="btn btn-primary" [disabled]="overOneHundred()" (click)="increment()">Click Me</button>
+</section>
