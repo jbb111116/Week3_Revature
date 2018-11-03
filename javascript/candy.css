@@ -1,0 +1,24 @@
+body{
+    min-height: 100%;
+    background: black;
+    color: orangered;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+#candy-container {
+    width: 70vw;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.candy-box {
+    border: 1px solid grey;
+    padding: 10px;
+    margin: 20px;
+}

@@ -1,0 +1,22 @@
+package com.revature.services;
+
+import java.util.List;
+
+import com.revature.models.Costume;
+
+public class CostumeService {
+	
+	public Costume getCostumeById(int id) {
+		
+	}
+	
+	public List<Costume> getAllCostumes(){
+		
+		return null;
+	}
+	
+	public Costume saveCostume(Costume costume) {
+		
+		retunr null;
+	}
+}

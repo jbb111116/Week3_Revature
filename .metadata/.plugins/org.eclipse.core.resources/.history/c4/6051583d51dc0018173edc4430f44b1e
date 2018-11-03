@@ -1,0 +1,27 @@
+package com.revature.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ContainerController {
+	
+	List<String> candies = new ArrayList<>();
+	{
+		candies.add("snickers");
+		candies.add("candy corn");
+		candies.add("caramel m&ms");
+		candies.add("svenska fish");
+		candies.add("hot tamales");
+	}
+	
+	public void get(HttpServletRequest request ,HttpServletResponse response) {
+		
+	}
+	
+	public void post(HttpServletRequest request, HttpServletResponse response) {
+		
+	}
+}

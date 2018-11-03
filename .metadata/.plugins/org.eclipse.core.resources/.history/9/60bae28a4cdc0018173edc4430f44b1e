@@ -1,0 +1,45 @@
+package com.revature.frontcontroller;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.servlets.DefaultServlet;
+
+import com.revature.controller.CandyController;
+import com.revature.controller.ContainerController;
+import com.revature.controller.Route;
+
+public class DispatcherServlet extends DefaultServlet {
+	CandyController candyController = new CandyController();
+	ContainerController containerController = new ContainerController();
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.getWriter().write("hello servlet");
+		Route route = getRoute(request);
+		System.out.println(route);
+		switch(route) {
+		case CANDY:
+		}
+	}
+	
+	static Route getRoute(HttpServletRequest request) {
+		System.out.println(request.getRequestURI());
+		String suffix = request.getRequestURI().substring("/HalloweenCandy/".length());
+		String routeString = suffix.split("/")[0];
+		try {
+			return Route.valueOf(routeString.toUpperCase());
+		} catch(IllegalArgumentException e) {
+			return null;
+		}
+	}
+	
+}

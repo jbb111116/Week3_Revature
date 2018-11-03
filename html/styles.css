@@ -1,0 +1,51 @@
+h1, h2 {
+    text-align: center;
+}
+
+img {
+    max-height: 200px;
+    max-width: 200px;
+}
+.no-list-style > li {
+    list-style: none;
+}
+
+.no-list-style {
+    padding-left: 0;
+}
+
+body {
+    background-image: url("https://cdn.pixabay.com/photo/2016/01/10/01/16/dog-bone-background-1131348_960_720.jpg");
+}
+#wrapper {
+    background-color: rgba(255,255,255,0.8);
+    width: 70vw;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+#top-dogs-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+#vacation-spots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+#vacation-spots > li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    border: 3px double black;
+    text-align: center;
+}

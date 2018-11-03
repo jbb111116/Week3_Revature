@@ -1,0 +1,55 @@
+package com.revature.frontcontroller;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.servlets.DefaultServlet;
+
+import com.revature.controller.CandyController;
+import com.revature.controller.ContainerController;
+import com.revature.controller.Route;
+
+public class DispatcherServlet extends DefaultServlet {
+	CandyController candyController = new CandyController();
+	ContainerController containerController = new ContainerController();
+	
+
+		
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		
+		
+		Route route = getRoute(request);
+		switch(route) {
+		case CANDY: candyController.get(request, response);break;
+		case CONTAINER: containerController.get(request, response);break;
+		case NOT_FOUND:
+		default: response.setStatus(404);break;
+		}
+	}
+	static Route getRoute(HttpServletRequest request) {
+		System.out.println(request.getRequestURI());
+		String suffix = request.getRequestURI().substring("/HalloweenCandy/".length());
+		String routeString = suffix.split("/")[0];
+		try {
+			return Route.valueOf(routeString.toUpperCase());
+		} catch(IllegalArgumentException e) {
+			return Route.NOT_FOUND;
+		}
+	}
+	
+	@Override 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		Route route = getRoute(request);
+		switch(route) {
+		case CANDY: candyController.post(request, response);break;
+		case CONTAINER: containerController.post(request, response);break;
+		case NOT_FOUND:
+		default: response.setStatus(404);break;
+		}
+	}
+	
+	
+}

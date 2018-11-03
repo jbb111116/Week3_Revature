@@ -1,0 +1,18 @@
+package com.revature.services;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class DisneyService {
+	private Map<String, String> disneyCharacterMap = new HashMap<>();
+	
+	// Hold a main character as a value mapped by a key of the movie name
+	public String getCharacter(String movie) {
+		
+	}
+	
+	public void setCharacter(String movie, String character) {
+		
+	}
+	
+}

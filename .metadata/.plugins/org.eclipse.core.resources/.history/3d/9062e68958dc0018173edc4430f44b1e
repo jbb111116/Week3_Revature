@@ -1,0 +1,38 @@
+package com.revature.controllers;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class CandyController {
+	
+	List<String> candies = new ArrayList<>();
+	{
+		candies.add("snickers");
+		candies.add("candy corn");
+		candies.add("caramel m&ms");
+		candies.add("svenska fish");
+		candies.add("hot tamales");
+	}
+	
+	public void get(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// localhost:8080/HalloweenCandy/candy?candy=1
+		String param = request.getParameter("candy");
+		if(param == null) {
+			response.getWriter().write(candies.toString());
+		} else {
+			int id = Integer.parseInt(param);
+			response.getWriter().write(candies.get(id));
+		}
+		
+	}
+
+	public void post(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		candies.add(request.getParameter("candy"));
+		response.getWriter().write(request.getParameter("candy") 
+				+ " added with id " + (candies.size()-1));
+	}
+}

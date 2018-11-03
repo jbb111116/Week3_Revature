@@ -1,0 +1,28 @@
+package com.revature.services;
+
+import java.util.List;
+
+import com.revature.daos.CostumeDao;
+import com.revature.models.Costume;
+/**
+ * Service Layer - Home of business logic for the costume API.
+ *
+ */
+
+public class CostumeService {
+	CostumeDao costumeDao = new CostumeDao();
+	
+	public Costume getCostumeById(int id) {
+		return costumeDao.getById(id);
+	}
+	
+	public List<Costume> getAllCostumes(){
+		return null;
+		
+	}
+	
+	public Costume saveCostume(Costume costume) {
+		
+		return null;
+	}
+}

@@ -1,0 +1,8 @@
+package com.revature.controller;
+
+public enum Route {
+	CANDY,
+	CONTAINER,
+	STATIC,
+	NOT_FOUND
+}

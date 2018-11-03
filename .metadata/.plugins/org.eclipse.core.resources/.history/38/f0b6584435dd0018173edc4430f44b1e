@@ -1,0 +1,11 @@
+package com.revature.controller;
+
+public class CostumesController {
+	public void get(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+	}
+	
+	public void post(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+	}
+}

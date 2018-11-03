@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+C:\Users\jonbe\OneDrive\Documents\RevatureLectures\Week3_Revature\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\179303719.index
+\HalloweenCandy\src\main\resources
+C:\Users\jonbe\OneDrive\Documents\RevatureLectures\Week3_Revature\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2899209660.index
+\ServletExample\src\main\resources
