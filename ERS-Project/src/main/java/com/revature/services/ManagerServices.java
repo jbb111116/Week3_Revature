@@ -21,6 +21,10 @@ public class ManagerServices {
 			return reimbDao.AllPendingRequests();
 		}
 		
+		public List<ReimbursementRequest> getAllRequests() {
+			return reimbDao.AllRequests();
+		}
+		
 		public List<ReimbursementRequest> getPendingRequestsByUsername(String username){
 			return reimbDao.UserPendingRequests(username);
 		}
@@ -28,6 +32,11 @@ public class ManagerServices {
 		public List<ReimbursementRequest> getProcessedRequestsByUsername(String username){
 			return reimbDao.UserProcessedRequests(username);
 		}
+		
+		public List<ReimbursementRequest> getAllRequestsByUsername(String username){
+			return reimbDao.UserProcessedRequests(username);
+		}
+		
 		
 		//------------------------------------------------------------
 		

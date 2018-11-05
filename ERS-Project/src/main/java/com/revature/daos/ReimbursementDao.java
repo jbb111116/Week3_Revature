@@ -100,16 +100,31 @@ public class ReimbursementDao {
 		}
 	}
 	
+	public List<ReimbursementRequest> AllRequests(){
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			List<ReimbursementRequest> pending = AllPendingRequests();
+			List<ReimbursementRequest> processed = AllCompletedRequests();
+			List<ReimbursementRequest> requests = new ArrayList<>();
+			
+			requests.addAll(pending);
+			requests.addAll(processed);
+			
+			return requests;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	// Creates a new request that just sends to the database.
 	public ReimbursementRequest  createRequest(ReimbursementRequest request) {
 		try(Connection conn = ConnectionUtil.getConnection()){
 			String query = "INSERT INTO reimbursement(reimb_amount,"
-							+ "reimb_submitted,\r\n"
+							+ "reimb_submitted,"
 							+"reimb_resolved,"
 							+ "reimb_description,"
 							+ "reimb_receipt, "
-							+ "reimb_author,"
-							+ " \r\n" 
+							+ "reimb_author," 
 							+"reimb_status_id, "
 							+ "reimb_type_id) \r\n"
 							+"VALUES(?,CURRENT_TIMESTAMP,?,?,null,?,?,?);";
@@ -136,8 +151,7 @@ public class ReimbursementDao {
 	// Extracts all pending request of a User
 	public List<ReimbursementRequest> UserPendingRequests(String username){
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "SELECT * \r\n" + 
-					"FROM reimbursement LEFT JOIN users ON reimbursement.reimb_author = users.users_id WHERE username = ? AND reimbursement.reimb_status_id = 1;";
+			String query = "SELECT * FROM reimbursement LEFT JOIN users ON reimbursement.reimb_author = users.users_id WHERE username = ? AND reimbursement.reimb_status_id = 1;";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
@@ -157,8 +171,7 @@ public class ReimbursementDao {
 	// Extracts all processed requests of a User
 	public List<ReimbursementRequest> UserProcessedRequests(String username){
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "SELECT * \r\n" + 
-					"FROM reimbursement LEFT JOIN users ON reimbursement.reimb_author = users.users_id WHERE username = ? AND reimbursement.reimb_status_id > 1;";
+			String query = "SELECT * FROM reimbursement LEFT JOIN users ON reimbursement.reimb_author = users.users_id WHERE username = ? AND reimbursement.reimb_status_id > 1;";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
@@ -174,4 +187,21 @@ public class ReimbursementDao {
 			return null;
 		}
 	}
+	
+	public List<ReimbursementRequest> allUserRequests(String username){
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			List<ReimbursementRequest> pending = UserPendingRequests(username);
+			List<ReimbursementRequest> processed = UserProcessedRequests(username);
+			List<ReimbursementRequest> requests = new ArrayList<>();
+			
+			requests.addAll(pending);
+			requests.addAll(processed);
+			
+			return requests;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

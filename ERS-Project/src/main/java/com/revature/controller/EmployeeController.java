@@ -20,40 +20,18 @@ public class EmployeeController {
 	public void get(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String uri = request.getRequestURI();
 		String[] parts = uri.substring("/ERS-Project/employee/".length()).split("/");
+		String username = parts[0];
+		String choice = parts[1];		
 		if(parts.length == 0) {
 			// get all requests
-			
-		} else {
-			
-			// get request by Username
-			String username = parts[0];
-//			int id = 0;
-			
-//			try {
-////				id = Integer.parseInt(username);
-//				List<ReimbursementRequest> userPendingRequests = empServices.getPendingRequestsByUsername(username);
-//				if(userPendingRequests == null) {
-//					response.sendError(404);
-//				}
-//				ObjectMapper om = new ObjectMapper();
-//				om.writeValue(response.getWriter(), userPendingRequests);
-//				
-//			}catch (NumberFormatException e) {
-//				System.out.println("No costume found");
-//				
-//				// could assume that this is the name
-//				response.sendError(404);
-//				return;
-//			}
 			try {
-//				id = Integer.parseInt(username);
-				List<ReimbursementRequest> userProcessedRequests = empServices.getPendingRequestsByUsername(username);
-				if(userProcessedRequests.isEmpty()) {
+				List<ReimbursementRequest> allUserRequests = empServices.getAllRequestsByUsername(username);
+				if(allUserRequests.isEmpty()) {
 					System.out.println("Requests not found");
 					response.sendError(404);
 				}
 				ObjectMapper om = new ObjectMapper();
-				om.writeValue(response.getWriter(), userProcessedRequests);
+				om.writeValue(response.getWriter(), allUserRequests);
 				
 			}catch (NumberFormatException e) {
 				System.out.println("Requests found");
@@ -62,6 +40,47 @@ public class EmployeeController {
 				response.sendError(404);
 				return;
 			}
+		} else {
+			// get request by Username
+			switch(choice) {
+			case "pending": 
+				try {
+					List<ReimbursementRequest> userPendingRequests = empServices.getPendingRequestsByUsername(username);
+					if(userPendingRequests.isEmpty()) {
+						response.sendError(404);
+					}
+					ObjectMapper om = new ObjectMapper();
+					om.writeValue(response.getWriter(), userPendingRequests);
+					
+				}catch (NumberFormatException e) {
+					System.out.println("No costume found");
+					
+					// could assume that this is the name
+					response.sendError(404);
+					return;
+				}
+				break;
+			case "processed":
+				try {
+					List<ReimbursementRequest> userCompletedRequests = empServices.getProcessedRequestsByUsername(username);
+					if(userCompletedRequests.isEmpty()) {
+						response.sendError(404);
+					}
+					ObjectMapper om = new ObjectMapper();
+					om.writeValue(response.getWriter(), userCompletedRequests);
+					
+				}catch (NumberFormatException e) {
+					System.out.println("No costume found");
+					
+					// could assume that this is the name
+					response.sendError(404);
+					return;
+				}
+				break;
+			}
+			
+			
+			
 			
 		}
 	}

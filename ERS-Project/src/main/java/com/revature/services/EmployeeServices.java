@@ -3,7 +3,6 @@ package com.revature.services;
 import java.util.List;
 
 import com.revature.daos.ReimbursementDao;
-import com.revature.daos.UserDao;
 import com.revature.models.ReimbursementRequest;
 
 public class EmployeeServices {
@@ -19,6 +18,10 @@ public class EmployeeServices {
 	
 	public List<ReimbursementRequest> getProcessedRequestsByUsername(String username){
 		return reimbDao.UserProcessedRequests(username);
+	}
+	
+	public List<ReimbursementRequest> getAllRequestsByUsername(String username){
+		return reimbDao.allUserRequests(username);
 	}
 	
 }
