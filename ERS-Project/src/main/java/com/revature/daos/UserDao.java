@@ -23,21 +23,24 @@ public class UserDao {
 
 			return extracted;
 		}
+		
+		private int extractUserId(ResultSet rs) throws SQLException {
+			int id = rs.getInt("user_role_id");
+			return id;
+			
+		}
 
-		public List<User> employeeLogin(String username, String password) {
+		public User employeeLogin(String username) {
 			try (Connection conn = ConnectionUtil.getConnection()) {
-				String query = "SELECT * FROM users INNER JOIN user_roles ON user_roles.user_role_id = users.user_role_id WHERE username = ? AND psswrd = ? AND user_role_id = ?;";
+				User user = null;
+				String query = "SELECT * FROM users  WHERE username = ?;";
 				PreparedStatement ps = conn.prepareStatement(query);
 				ps.setString(1, username);
-				ps.setString(2, password);
-				ps.setInt(3, 1);
 				ResultSet rs = ps.executeQuery();
-				List<User> users = new ArrayList<>();
-				while(rs.next()) {
-					User user = extractEmployee(rs);
-					users.add(user);
-				}
-				return users;
+				rs.next();
+				user = extractEmployee(rs);
+				System.out.println(user);
+				return user;
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return null;
@@ -52,8 +55,7 @@ public class UserDao {
 				ps.setString(2, user.getPassword());
 				ps.setString(3, user.getFirstName());
 				ps.setString(4, user.getLastName());
-				ps.setString(5, user.getEmail());
-				ps.setInt(6,1);
+				ps.setInt(5,1);
 				
 				ResultSet rs = ps.executeQuery();
 				rs.next();
@@ -114,30 +116,27 @@ public class UserDao {
 		private User extractManager(ResultSet rs) throws SQLException {
 			User extracted = new User();
 
-			extracted.setUser_id(rs.getInt("users.id"));
+			extracted.setUser_id(rs.getInt("users_id"));
 			extracted.setUsername(rs.getString("username"));
 			extracted.setPassword(rs.getString("psswrd"));
-			extracted.setFirstName(rs.getString("first_name"));
-			extracted.setLastName(rs.getString("last_name"));
+			extracted.setFirstName(rs.getString("user_first_name"));
+			extracted.setLastName(rs.getString("user_last_name"));
 			extracted.setRole(rs.getInt("user_role_id"));
 
 			return extracted;
 		}
 
-		public List<User> managerLogin(String username, String password) {
+		public User managerLogin(String username) {
 			try (Connection conn = ConnectionUtil.getConnection()) {
-				String query = "SELECT * FROM users INNER JOIN user_roles ON user_roles.user_role_id = users.user_role_id WHERE username = ? AND psswrd = ? AND user_role_id = ?;";
+				User user = null;
+				String query = "SELECT * FROM users  WHERE username = ?;";
 				PreparedStatement ps = conn.prepareStatement(query);
 				ps.setString(1, username);
-				ps.setString(2, password);
-				ps.setInt(3, 2);
 				ResultSet rs = ps.executeQuery();
-				List<User> users = new ArrayList<>();
-				while(rs.next()) {
-					User user = extractManager(rs);
-					users.add(user);
-				}
-				return users;
+				rs.next();
+				user = extractManager(rs);
+				System.out.println(user);
+				return user;
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return null;
@@ -152,8 +151,7 @@ public class UserDao {
 				ps.setString(2, user.getPassword());
 				ps.setString(3, user.getFirstName());
 				ps.setString(4, user.getLastName());
-				ps.setString(5, user.getEmail());
-				ps.setInt(6,2);
+				ps.setInt(5,2);
 				
 				ResultSet rs = ps.executeQuery();
 				rs.next();

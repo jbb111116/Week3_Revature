@@ -2,11 +2,17 @@ package com.revature.services;
 
 import java.util.List;
 
+
 import com.revature.daos.ReimbursementDao;
+import com.revature.daos.UserDao;
 import com.revature.models.ReimbursementRequest;
+import com.revature.models.User;
+
+
 
 public class EmployeeServices {
 	ReimbursementDao reimbDao = new ReimbursementDao();
+	UserDao userDao = new UserDao();
 	
 	public ReimbursementRequest submitRequest(ReimbursementRequest request) {
 		return reimbDao.createRequest(request);
@@ -24,4 +30,14 @@ public class EmployeeServices {
 		return reimbDao.allUserRequests(username);
 	}
 	
+	public User login(String username, String password) {
+		User user = userDao.employeeLogin(username);
+		if(user!=null) {
+			if(password.equals(user.getUsername())){
+				return user;
+			}
+			
+		}
+		return null;
+	}
 }

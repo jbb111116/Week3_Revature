@@ -204,4 +204,26 @@ public class ReimbursementDao {
 		}
 	}
 	
+	public ReimbursementRequest processRequest(ReimbursementRequest request) {
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String query = "UPDATE reimbursement SET reimb_resolved = CURRENT_TIMESTAMP, reimb_resolver = ? , reimb_status_id = ? WHERE reimb_status_id = ? AND reimb_id = ?;";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, request.getResolver_id());
+			ps.setInt(2, request.getStatus_id());
+			ps.setInt(3, request.getStatus_id());
+			ps.setInt(4,request.getResolver_id());
+			ps.setInt(5, request.getReimbursement_id());
+			
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			request.setReimbursement_id(rs.getInt("reimb_id"));
+			request.setSubmitted(rs.getDate("reimb_submitted"));
+			return request;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 }

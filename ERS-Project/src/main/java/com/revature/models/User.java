@@ -7,7 +7,6 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private String email;
 	public int getUser_id() {
 		return user_id;
 	}
@@ -44,17 +43,10 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -72,11 +64,6 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
@@ -106,10 +93,9 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", role=" + role + ", username=" + username + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+				+ ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
-	public User(int user_id, int role, String username, String password, String firstName, String lastName,
-			String email) {
+	public User(int user_id, int role, String username, String password, String firstName, String lastName) {
 		super();
 		this.user_id = user_id;
 		this.role = role;
@@ -117,10 +103,10 @@ public class User {
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
 	}
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 }

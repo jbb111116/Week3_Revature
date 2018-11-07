@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.ReimbursementRequest;
+import com.revature.models.User;
 import com.revature.services.ManagerServices;
 
 public class ManagerController {
@@ -108,8 +109,12 @@ public class ManagerController {
 	}
 	
 	public void post(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+		ManagerServices manServices = new ManagerServices();
 		
 		ObjectMapper mapper = new ObjectMapper();
+		User user = mapper.readValue(request.getReader(), User.class);
+		manServices.login(user.getUsername(), user.getPassword());
+		
+		
 	}
 }

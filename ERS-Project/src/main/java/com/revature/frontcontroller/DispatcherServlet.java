@@ -18,9 +18,11 @@ public class DispatcherServlet extends DefaultServlet {
 	EmployeeController empController = new EmployeeController();
 	ManagerController manController = new ManagerController();
 	
+	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws IOException, ServletException {
 		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Headers", "Content-Type");
 		super.service(request, response);
 	}
 
