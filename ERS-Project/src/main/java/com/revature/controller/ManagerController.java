@@ -21,91 +21,103 @@ public class ManagerController {
 		
 		String uri = request.getRequestURI();
 		String[] parts = uri.substring("/ERS-Project/manager/".length()).split("/");
-		String username = parts[0];
-		String choice = parts[1];		
-		if(parts.length == 0) {
-			// get all requests
-			try {
-				List<ReimbursementRequest> requests = manServices.getAllRequests();
-				
-				if(requests.isEmpty()) {
-					System.out.println("Requests not found");
-					response.sendError(404);
-				}
-				ObjectMapper om = new ObjectMapper();
-				om.writeValue(response.getWriter(), requests);
-				
-			}catch (NumberFormatException e) {
-				System.out.println("Requests found");
-				
-				// could assume that this is the name
-				response.sendError(404);
-				return;
-			}
-		}
-		else if(parts[1].isEmpty()) {
-			try {
-				List<ReimbursementRequest> allUserRequests = manServices.getAllRequestsByUsername(username);
-				if(allUserRequests.isEmpty()) {
-					System.out.println("Requests not found");
-					response.sendError(404);
-				}
-				ObjectMapper om = new ObjectMapper();
-				om.writeValue(response.getWriter(), allUserRequests);
-				
-			}catch (NumberFormatException e) {
-				System.out.println("Requests found");
-				
-				// could assume that this is the name
-				response.sendError(404);
-				return;
-			}
-			
-		}
+		String manUsername = parts[0];
+
 		
-		else {
-			// get request by Username given a certain username.
+		String choice = parts[1];
 			switch(choice) {
-			case "pending": 
-				try {
-					List<ReimbursementRequest> requests = manServices.getPendingRequestsByUsername(username);
-					if(requests.isEmpty()) {
-						response.sendError(404);
+			case "pending":
+				if(parts.length <= 3) {
+					if(parts.length == 2 ) {
+						try {
+							List<User> users = manServices.listOfUsers();
+							ObjectMapper om = new ObjectMapper();
+							om.writeValue(response.getWriter(), users);
+							
+						}catch (NumberFormatException e) {
+							System.out.println("Requests not found");
+							
+							// could assume that this is the name
+							response.sendError(404);
+							return;
+						}
+						
 					}
-					ObjectMapper om = new ObjectMapper();
-					om.writeValue(response.getWriter(), requests);
-					
-				}catch (NumberFormatException e) {
-					System.out.println("No costume found");
-					
-					// could assume that this is the name
-					response.sendError(404);
-					return;
+					else if( parts.length == 3){
+						String username = parts[2];
+						if(!(username.equals(manUsername))){
+							try {
+								List<ReimbursementRequest> allUserRequests = manServices.getPendingRequestsByUsername(username);
+								if(allUserRequests.isEmpty()) {
+									System.out.println("Requests not found");
+									response.sendError(404);
+								}
+								ObjectMapper om = new ObjectMapper();
+								om.writeValue(response.getWriter(), allUserRequests);
+								
+							}catch (NumberFormatException e) {
+								System.out.println("Requests found");
+								
+								// could assume that this is the name
+								response.sendError(404);
+								return;
+							}
+						}
+						else {
+							ObjectMapper om = new ObjectMapper();
+							om.writeValue(response.getWriter(),"No requests found.");
+						}
+					}
 				}
 				break;
 			case "processed":
-				try {
-					List<ReimbursementRequest> requests = manServices.getProcessedRequestsByUsername(username);
-					if(requests.isEmpty()) {
-						response.sendError(404);
+				if(parts.length <= 3) {
+					if(parts.length == 2) {
+						try {
+							List<User> users = manServices.listOfUsers();
+							ObjectMapper om = new ObjectMapper();
+							om.writeValue(response.getWriter(), users);
+							
+						}catch (NumberFormatException e) {
+							System.out.println("Requests not found");
+							
+							// could assume that this is the name
+							response.sendError(404);
+							return;
+						}
+						
 					}
-					ObjectMapper om = new ObjectMapper();
-					om.writeValue(response.getWriter(), requests);
-					
-				}catch (NumberFormatException e) {
-					System.out.println("No costume found");
-					
-					// could assume that this is the name
-					response.sendError(404);
-					return;
+					else if(parts.length == 3) {
+						String username = parts[2];
+						if(!(username.equals(manUsername))) {
+							try {
+								List<ReimbursementRequest> allUserRequests = manServices.getProcessedRequestsByUsername(username);
+								if(allUserRequests.isEmpty()) {
+									System.out.println("Requests not found");
+									response.sendError(404);
+								}
+								ObjectMapper om = new ObjectMapper();
+								om.writeValue(response.getWriter(), allUserRequests);
+								
+							}catch (NumberFormatException e) {
+								System.out.println("Requests found");
+								
+								// could assume that this is the name
+								response.sendError(404);
+								return;
+							}
+						}
+						else {
+							ObjectMapper om = new ObjectMapper();
+							om.writeValue(response.getWriter(),"No requests found.");
+						}
+					}
 				}
 				break;
+			case "new-request":
+				// Working on it
+				break;
 			}
-			
-			
-			
-			
-		}
 	}
 	
 	public void post(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -113,7 +125,12 @@ public class ManagerController {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		User user = mapper.readValue(request.getReader(), User.class);
-		manServices.login(user.getUsername(), user.getPassword());
+		String responseVar = manServices.login(user.getUsername(), user.getPassword());
+		if(responseVar.length()==0) {
+			mapper.writeValue(response.getWriter(),"Invalid Password!" );
+		} else {
+			mapper.writeValue(response.getWriter(), "Welcome!");
+		}
 		
 		
 	}

@@ -4,13 +4,17 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Scanner;
 
+import com.revature.daos.UserDao;
 import com.revature.services.Logistics;
 
 public class Instantiations {
-	public static User promptCreateEmployee() {
-		User emp = new User();
-		return emp;
-	}
+	
+//	public static User promptCreateEmployee() {
+//		User emp = null;
+//		
+//		emp = User();
+//		return emp;
+//	}
 	
 	// this function is going to be modified depending on the user input in the front end.
 	public static ReimbursementRequest newRequest() {

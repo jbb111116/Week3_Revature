@@ -1,7 +1,7 @@
 package com.revature.services;
 
-import java.util.List;
 
+import java.util.List;
 
 import com.revature.daos.ReimbursementDao;
 import com.revature.daos.UserDao;
@@ -30,14 +30,17 @@ public class EmployeeServices {
 		return reimbDao.allUserRequests(username);
 	}
 	
-	public User login(String username, String password) {
-		User user = userDao.employeeLogin(username);
-		if(user!=null) {
-			if(password.equals(user.getUsername())){
-				return user;
+	public String login(String username, String password) {
+		User user = userDao.Login(username);
+		String hashPassword = user.hashing(password);
+		if(user!=null && user.getRole()==1) {
+			if(hashPassword.equals(user.getPassword())){
+				return user.getUsername();
 			}
 			
 		}
-		return null;
+		return "";
 	}
+	
+	
 }

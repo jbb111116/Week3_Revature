@@ -11,14 +11,15 @@ import com.revature.models.User;
 import com.revature.utils.ConnectionUtil;
 
 public class UserDao {
+	
 	// ---------------------------------Employee Connection----------------------------------------
 		private User extractEmployee(ResultSet rs) throws SQLException {
 			User extracted = new User();
-			extracted.setUser_id(rs.getInt("users.id"));
+			extracted.setUser_id(rs.getInt("users_id"));
 			extracted.setUsername(rs.getString("username"));
 			extracted.setPassword(rs.getString("psswrd"));
-			extracted.setFirstName(rs.getString("first_name"));
-			extracted.setLastName(rs.getString("last_name"));
+			extracted.setFirstName(rs.getString("user_first_name"));
+			extracted.setLastName(rs.getString("user_last_name"));
 			extracted.setRole(rs.getInt("user_role_id"));
 
 			return extracted;
@@ -29,8 +30,30 @@ public class UserDao {
 			return id;
 			
 		}
+		
+		public List<User> allUsers() {
+			try(Connection conn = ConnectionUtil.getConnection()){
+				String query = "SELECT * FROM users;";
+				PreparedStatement ps = conn.prepareStatement(query);
+				
+				ResultSet rs = ps.executeQuery();
+				List<User> users = new ArrayList<>();
+				while(rs.next()) {
+					User user = extractEmployee(rs);
+					users.add(user);
+				}
+				System.out.println(users);
+				System.out.println("Users extracted!");
+				return users;
+				
+			}catch(SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+		}
 
-		public User employeeLogin(String username) {
+		public User Login(String username) {
 			try (Connection conn = ConnectionUtil.getConnection()) {
 				User user = null;
 				String query = "SELECT * FROM users  WHERE username = ?;";
@@ -51,11 +74,12 @@ public class UserDao {
 			try(Connection conn = ConnectionUtil.getConnection()){
 				String query = "INSERT INTO users (username,psswrd,user_first_name,user_last_name,user_email,user_role_id) VALUES (?,?,?,?,?,?) RETURNING username;";
 				PreparedStatement ps = conn.prepareStatement(query);
-				ps.setString(1, user.getFirstName());
+				ps.setString(1, user.getUsername());
 				ps.setString(2, user.getPassword());
 				ps.setString(3, user.getFirstName());
 				ps.setString(4, user.getLastName());
-				ps.setInt(5,1);
+				ps.setString(5,user.getEmail());
+				ps.setInt(6,1);
 				
 				ResultSet rs = ps.executeQuery();
 				rs.next();
@@ -78,11 +102,28 @@ public class UserDao {
 		public void promoteByUsername(User user) {
 
 			try(Connection conn = ConnectionUtil.getConnection()){
-				String query = "UPDATE users SET user_role_id = ? WHERE = ?;";
+				String query = "UPDATE users SET user_role_id = ? WHERE username = ?;";
 				PreparedStatement ps = conn.prepareStatement(query);
 				ps.setInt(1, 2);
 				ps.setString(2, user.getUsername());
 				ps.execute();
+			
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void changePass(String username, String password) {
+
+			try(Connection conn = ConnectionUtil.getConnection()){
+				User user = null;
+				String query = "UPDATE users SET psswrd = ? WHERE username = ?;";
+				PreparedStatement ps = conn.prepareStatement(query);
+				ps.setString(1, user.hashing(password));
+				ps.setString(2, username);
+				ps.execute();
+				
+				System.out.println(user.hashing(password));
 			
 			} catch(SQLException e) {
 				e.printStackTrace();
