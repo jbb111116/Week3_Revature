@@ -13,6 +13,7 @@ import { NewrequestComponent } from './newrequest/newrequest.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { AuthGuard } from './auth.guard';
     BrowserAnimationsModule,
     FormsModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
