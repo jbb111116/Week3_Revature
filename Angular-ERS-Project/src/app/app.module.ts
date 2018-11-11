@@ -8,11 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from './services/login.service';
+import { ManagerComponent } from './components/manager/manager.component';
+import { EmployeeComponent } from './components/employee/employee.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ManagerComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,

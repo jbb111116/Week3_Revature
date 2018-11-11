@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.servlets.DefaultServlet;
 
 import com.revature.controller.EmployeeController;
+import com.revature.controller.LoginController;
 import com.revature.controller.ManagerController;
 import com.revature.controller.Route;
 
 public class DispatcherServlet extends DefaultServlet {
 	EmployeeController empController = new EmployeeController();
 	ManagerController manController = new ManagerController();
+	LoginController logController = new LoginController();
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
@@ -26,6 +28,7 @@ public class DispatcherServlet extends DefaultServlet {
 		super.service(request, response);
 	}
 
+	// Java GET is for SELECT in SQL, unless logging in
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -46,17 +49,31 @@ public class DispatcherServlet extends DefaultServlet {
 		}
 	}
 	
+	// Java POST is for INSERT in SQL
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Route route = getRoute(request);
 		
 		switch(route) {
+			case LOGIN: logController.post(request, response); break;
 			case MANAGER: manController.post(request, response); break;
 			case EMPLOYEE: empController.post(request, response); break;
 			case NOT_FOUND:
 			default: response.setStatus(404);
 		}
 	}
+	
+	// According to CRUD, Java's PUT method is for UPDATE in SQL
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Route route = getRoute(request);
+		
+		switch(route) {
+		case MANAGER: manController.put(request, response); break;
+		case NOT_FOUND:
+		default: response.setStatus(404);
+		}
+	}
+	
 	
 	//1
 	static Route getRoute(HttpServletRequest request) {

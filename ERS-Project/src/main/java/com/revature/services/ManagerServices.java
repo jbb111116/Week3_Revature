@@ -36,16 +36,16 @@ public class ManagerServices {
 			return reimbDao.UserProcessedRequests(username);
 		}
 		
-		public String login(String username, String password) {
+		public User manLogin(String username, String password) {
 			User user = userDao.Login(username);
 			String hashPassword = user.hashing(password);
 			if(user!=null && user.getRole()==2) {
 				if(hashPassword.equals(user.getPassword())){
-					return user.getUsername();
+					return user;
 				}
 				
 			}
-			return "";
+			return null;
 		}
 		
 		public List<User> listOfUsers(){

@@ -25,11 +25,6 @@ public class UserDao {
 			return extracted;
 		}
 		
-		private int extractUserId(ResultSet rs) throws SQLException {
-			int id = rs.getInt("user_role_id");
-			return id;
-			
-		}
 		
 		public List<User> allUsers() {
 			try(Connection conn = ConnectionUtil.getConnection()){
@@ -63,12 +58,14 @@ public class UserDao {
 				rs.next();
 				user = extractEmployee(rs);
 				System.out.println(user);
+				System.out.println(user.getUser_id());
 				return user;
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return null;
 			}
 		}
+		
 		
 		public User createEmployee(User user) {
 			try(Connection conn = ConnectionUtil.getConnection()){

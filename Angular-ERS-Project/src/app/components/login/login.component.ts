@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
   EmpSubmit() {
     const credentials = {
       username: this.username,
-      password: this.password
+      password: this.password,
+      role: '2'
     };
 
     console.log(credentials);
@@ -38,14 +39,14 @@ export class LoginComponent implements OnInit {
   ManSubmit() {
     const credentials = {
       username: this.username,
-      password: this.password
+      password: this.password,
+      role: '1'
     };
     this.loginService.manLogin(credentials)
       .subscribe(
         (result) => {
           console.log(result);
-          // Navigate to home route
-          this.router.navigateByUrl('');
+          this.router.navigateByUrl(`${credentials.username}`);
         },
         (error) => console.log(error)
       );

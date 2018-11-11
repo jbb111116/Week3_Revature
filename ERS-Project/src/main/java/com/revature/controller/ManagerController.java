@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,13 +18,17 @@ public class ManagerController {
 	List<ReimbursementRequest> requests = new ArrayList<>();
 	ManagerServices manServices = new ManagerServices();
 	
+	// Manager will be able to view requests based on category
 	public void get(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		String uri = request.getRequestURI();
 		String[] parts = uri.substring("/ERS-Project/manager/".length()).split("/");
 		String manUsername = parts[0];
-
 		
+		// Getting cookies after Login
+		Cookie[] cookies = request.getCookies();
+		
+		// manager/username/status/user
 		String choice = parts[1];
 			switch(choice) {
 			case "pending":
@@ -120,18 +125,34 @@ public class ManagerController {
 			}
 	}
 	
+	// Manager will be able to create request
 	public void post(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		ManagerServices manServices = new ManagerServices();
+		// Getting cookies after Login
+		Cookie[] cookies = request.getCookies();
 		
 		ObjectMapper mapper = new ObjectMapper();
-		User user = mapper.readValue(request.getReader(), User.class);
-		String responseVar = manServices.login(user.getUsername(), user.getPassword());
-		if(responseVar.length()==0) {
-			mapper.writeValue(response.getWriter(),"Invalid Password!" );
-		} else {
-			mapper.writeValue(response.getWriter(), "Welcome!");
+		String uri = request.getRequestURI();
+		String[] parts = uri.substring("/ERS-Project/manager/".length()).split("/");
+		String username = parts[0];
+		String choice = parts[1];
+		if(choice.equals("new-request")) {
+			ReimbursementRequest newRequest = mapper.readValue(request.getReader(), ReimbursementRequest.class);
+			
+			// Sets the authorId for a new request.
+			newRequest.setAuthor_id(Integer.parseInt(cookies[1].getValue()));
+			ReimbursementRequest submittedRequest = manServices.submitRequest(newRequest);
+			mapper.writeValue(response.getWriter(),submittedRequest);
 		}
 		
+	}
+		
+	// Manager will be able to approve/deny requests
+	public void put(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		ReimbursementRequest pendingRequest = mapper.readValue(request.getReader(), ReimbursementRequest.class);
+		String uri = request.getRequestURI();
+		String[] parts = uri.substring("/ERS-Project/manager/".length()).split("/");
+		String resolvingUser = parts[0];
 		
 	}
 }

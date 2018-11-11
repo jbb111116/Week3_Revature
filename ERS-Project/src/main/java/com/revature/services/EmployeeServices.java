@@ -30,7 +30,7 @@ public class EmployeeServices {
 		return reimbDao.allUserRequests(username);
 	}
 	
-	public String login(String username, String password) {
+	public String empLogin(String username, String password) {
 		User user = userDao.Login(username);
 		String hashPassword = user.hashing(password);
 		if(user!=null && user.getRole()==1) {
@@ -40,6 +40,10 @@ public class EmployeeServices {
 			
 		}
 		return "";
+	}
+	
+	public User getUser(String username) {
+		return userDao.Login(username);
 	}
 	
 	

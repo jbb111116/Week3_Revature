@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
 
   manLogin(credentials: any) {
-    const url = `${environment.server}/manager/`;
+    const url = `${environment.server}/login`;
     return this.httpClient.post(url, credentials, {
       observe: 'response'
     });

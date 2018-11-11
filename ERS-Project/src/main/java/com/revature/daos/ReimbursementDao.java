@@ -121,21 +121,19 @@ public class ReimbursementDao {
 		try(Connection conn = ConnectionUtil.getConnection()){
 			String query = "INSERT INTO reimbursement(reimb_amount,"
 							+ "reimb_submitted,"
-							+"reimb_resolved,"
 							+ "reimb_description,"
 							+ "reimb_receipt, "
 							+ "reimb_author," 
 							+"reimb_status_id, "
 							+ "reimb_type_id) \r\n"
-							+"VALUES(?,CURRENT_TIMESTAMP,?,?,null,?,?,?);";
+							+"VALUES(?,CURRENT_TIMESTAMP,?,?,?,?) RETURNING *;";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setBigDecimal(1, request.getAmount());
-			ps.setDate(2, request.getResolved());
-			ps.setString(3, request.getDescription());
-			ps.setInt(4,request.getAuthor_id());
+			ps.setString(2, request.getDescription());
+			ps.setInt(3,request.getAuthor_id());
 //			ps.setInt(5,(Integer)null); // resolver_id
-			ps.setInt(5, request.getStatus_id());
-			ps.setInt(6, request.getType_id());
+			ps.setInt(4, 1);
+			ps.setInt(5, request.getType_id());
 			
 			ResultSet rs = ps.executeQuery();
 			rs.next();
