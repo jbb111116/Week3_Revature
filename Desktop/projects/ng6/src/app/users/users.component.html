@@ -1,0 +1,18 @@
+<h1>Active Requests</h1>
+
+<ul [@listStagger]="users$">
+  <li *ngFor="let user of users$">
+    <a routerLink="/details/{{user.id}}">{{ request.name }}</a>
+
+    <ul>
+      <li>{{ request.type }}</li>
+      <li><a href="http://{{ user.website }}">{{ request.amount }}</a></li>
+    </ul>
+    <div class="d-flex justify-content-around">
+      <button type="submit" class="btn btn-success">Approve</button>
+      <button type="submit" class="btn btn-danger">Deny</button>
+
+    </div>
+
+  </li>
+</ul>

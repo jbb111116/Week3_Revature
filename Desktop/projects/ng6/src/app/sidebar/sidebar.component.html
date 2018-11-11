@@ -1,0 +1,25 @@
+<nav>
+    <ul>
+      <li>
+        <a routerLink="" [class.activated]="currentUrl == '/'">
+          <i class="material-icons">fingerprint</i>
+        </a>
+      </li>
+      <li>
+          <a routerLink="request" [class.activated]="currentUrl == '/request'" >
+            <i class="material-icons">announcement</i>
+          </a>
+        </li>
+      <li>
+        <a routerLink="users" [class.activated]="currentUrl == '/users'" >
+          <i class="material-icons">hourglass_empty</i>
+        </a>
+      </li>
+      <li>
+        <a routerLink="posts" [class.activated]="currentUrl == '/posts'" >
+          <i class="material-icons">done</i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  

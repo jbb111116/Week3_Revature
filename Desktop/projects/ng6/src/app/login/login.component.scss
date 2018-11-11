@@ -1,0 +1,22 @@
+form {
+    display: inline;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.form-signin {
+    display: block;
+    margin-top: -5rem;
+    padding: 30vh;
+    background: lightskyblue;
+    font-size: 2rem;
+}
+
+#bottom {
+    /* display: block; */
+    /* margin: 0 auto; */
+    padding-top: 10px;
+    font-family: fantasy;
+    font-size: 10rem;
+    padding-left: 33vw;
+}
